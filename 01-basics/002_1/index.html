@@ -7,6 +7,34 @@
     <link rel="stylesheet" href="theme.css" />
   </head>
   <body>
-
+      <div class="container" id="app">
+        <div class="card">
+          <h1 :style="{
+            color:inputValue.length < 5 ? 'darkred' : 'darkgreen',
+          }">{{title}}</h1>
+          <div class="form-control">
+            <input type="text" 
+             :placeholder="placeHolderString"
+             v-model="inputValue"
+             @keypress.enter="addNote"
+             />
+          </div>
+          <button class="btn" @:click="addNote">Добавить</button>
+          <hr>
+          <ul class="list" v-if="notes.length">
+            <li class="list-item" v-for="(myNote,index) in notes">
+             <!-- <span :class="myNote.length > 5 ? 'prymary' : 'bold' "> ({{index + 1 }}) {{toUpperCase(myNote)}}</span>  -->
+             <span :class="['bold',{'primary':myNote.length > 5 }]"> ({{index + 1 }}) {{toUpperCase(myNote)}}</span> 
+              <button @:click="removeNote(index)" class="btn danger">Delete</button>
+            </li>
+            <li>
+              <strong>Текущее кол-во заметок: {{notes.length}}</strong> | Удвоенное кол-во заметок: {{ doubleCountComputed }}
+            </li>
+          </ul>
+          <h2 v-else>Добавьте Заметки</h2>
+        </div>
+      </div>
+     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+     <script src="./app.js"></script>
   </body>
 </html>
