@@ -1,47 +1,35 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div class="container pt-1">
+    <div class="card">
+       <h2>Slots</h2>
+      </div>
+   
+   <app-list>
+    <template #default="slotProps">
+      <span style="color: #c25205;">Item: {{ slotProps.iter }}</span> 
+    </template>
+    
+   </app-list>
+   
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <app-block>
+      <p>Это важный тескт из апп</p>
+      <template v-slot:header><h3>Это заголовок!</h3></template>
+    </app-block>
+  </div>
+  
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script>
+import AppBlock from './components/AppBlock.vue';
+import AppList from './components/AppList.vue';
+ export default {
+   components : {
+    AppBlock,AppList
+   }
+ }
+</script>
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+<style>
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
