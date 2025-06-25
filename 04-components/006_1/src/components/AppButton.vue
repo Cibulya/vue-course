@@ -11,6 +11,11 @@
 
 <script>
     export default {
+        methods: {
+            btnLog() {
+                console.log('LOG FROM BUTTON')
+            }
+        },
         emits:{
             'action':null,
         },
