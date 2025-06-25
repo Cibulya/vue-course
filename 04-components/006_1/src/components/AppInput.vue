@@ -20,7 +20,7 @@
         value:String,
         placeHolder:String,
         error:String,
-        label:String,
+        label:String, 
     },
     data() {
         return {
