@@ -1,58 +1,121 @@
 <template>
   <div class="container column">
-    <form class="card card-w30">
-      <div class="form-control">
-        <label for="type">Тип блока</label>
-        <select id="type">
-          <option value="title">Заголовок</option>
-          <option value="subtitle">Подзаголовок</option>
-          <option value="avatar">Аватар</option>
-          <option value="text">Текст</option>
-        </select>
-      </div>
-
-      <div class="form-control">
-        <label for="value">Значение</label>
-        <textarea id="value" rows="3"></textarea>
-      </div>
-
-      <button class="btn primary">Добавить</button>
-    </form>
+    
+    <app-form 
+    :options="options"
+    @add-block="addCvBlock"
+    ></app-form>
 
     <div class="card card-w70">
-      <h1>Резюме Nickname</h1>
-      <div class="avatar">
-        <img src="https://cdn.dribbble.com/users/5592443/screenshots/14279501/drbl_pop_r_m_rick_4x.png">
-      </div>
-      <h2>Опыт работы</h2>
-      <p>
-        главный герой американского мультсериала «Рик и Морти», гениальный учёный, изобретатель, атеист (хотя в некоторых сериях он даже молится Богу, однако, каждый раз после чудесного спасения ссылается на удачу и вновь отвергает его существование), алкоголик, социопат, дедушка Морти. На момент начала третьего сезона ему 70 лет[1]. Рик боится пиратов, а его главной слабостью является некий - "Санчезиум". Исходя из того, что существует неограниченное количество вселенных, существует неограниченное количество Риков, герой сериала предположительно принадлежит к измерению С-137. В серии комикcов Рик относится к измерению C-132, а в игре «Pocket Mortys» — к измерению C-123[2]. Прототипом Рика Санчеза является Эмметт Браун, герой кинотрилогии «Назад в будущее»[3].
-      </p>
-      <h3>Добавьте первый блок, чтобы увидеть результат</h3>
+      <!-- <app-title-block
+      v-for="item in cvData.filter(el=>el.type === 'title')"
+      :key="new Date()" 
+      :titleText="item.content"></app-title-block>
+      
+      <app-avatar
+        v-for="item in cvData.filter(el => el.type === 'avatar')"
+        :key="new Date()" 
+        :avatarSrc="item.content"
+      ></app-avatar>
+
+
+      <app-sub-heading 
+        v-for="item in cvData.filter(el => el.type === 'subtitle')"
+        :key="new Date()" 
+        :textContent="item.content"
+      ></app-sub-heading>
+
+      <app-text-desc
+        v-for="item in cvData.filter(el => el.type === 'text')"
+        :key="new Date()" 
+        :textContent="item.content"
+      ></app-text-desc> -->
+
+      <component
+       v-for="block in renderBlock"
+       :key="new Date()"
+       :is="block.component"
+       v-bind="block.compProps"
+      />
+      <h3 v-if="!cvData.length">Добавьте первый блок, чтобы увидеть результат</h3>
     </div>
   </div>
-  <div class="container">
-    <p>
-      <button class="btn primary">Загрузить комментарии</button>
-    </p>
-    <div class="card">
-      <h2>Комментарии</h2>
-      <ul class="list">
-        <li class="list-item">
-          <div>
-            <p><strong>test@microsoft.com</strong></p>
-            <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, reiciendis.</small>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="loader"></div>
-  </div>
+    <app-reviews-block></app-reviews-block>
 </template>
 
 <script>
-export default {
+import AppForm from './components/AppForm.vue';
+import AppTitleBlock from './components/AppTitleBlock.vue';
+import AppSubHeading from './components/AppSubHeading.vue';
+import AppAvatar from './components/AppAvatar.vue';
+import AppTextDesc from './components/AppTextDesc.vue';
+import AppReviewsBlock from './components/AppReviewsBlock.vue';
 
+export default {
+  components:{
+    AppForm,
+    AppTitleBlock,
+    AppSubHeading,
+    AppAvatar,
+    AppTextDesc,
+    AppReviewsBlock,
+  },
+  data() {
+    return {
+      options:[
+              {
+                type:'title',
+                optionText:'Заголовок',
+              },
+              {
+                type:'subtitle',
+                optionText:'Подзаголовок',
+              },
+              {
+                type:'avatar',
+                optionText:'Аватар',
+              },
+              {
+                type:'text',
+                optionText:'Текст',
+              },
+            ],
+      cvData:[],
+      reviews:[],      
+    }
+  },
+  methods:{
+    addCvBlock(cvData) {
+        this.cvData.push(cvData);
+    },
+  },
+  computed: {
+      renderBlock() {
+       return this.cvData.map(item=>{
+        let component = null;
+        let compProps = {}
+        switch(item.type) {
+          case 'avatar':
+            component = 'AppAvatar';
+            compProps = { avatarSrc:item.content };
+            break;
+           case 'title' :
+            component = 'AppTitleBlock';
+            compProps = { titleText:item.content };
+            break;
+          case 'subtitle' :
+            component = 'AppSubHeading';
+            compProps = { textContent:item.content };
+            break;
+          case 'text' :
+            component = 'AppTextDesc';
+            compProps = { textContent:item.content };
+          break;    
+        }
+        return {component,compProps}
+      })
+    }
+  }
 }
 </script>
 
