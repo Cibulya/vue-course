@@ -8,8 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/",
-    "deploy": "GH_TOKEN=$GH_TOKEN gh-pages -d dist -u \"cibulya <cibulya@gmail.com>\" -r https://$GH_TOKEN@github.com/Cibulya/vue-course.git"
+    "format": "prettier --write src/"
   },
   "dependencies": {
     "axios": "^1.10.0",
