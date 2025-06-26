@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "deploy": "vite build && gh-pages -d dist"
+    "deploy": "GH_TOKEN=$GH_TOKEN gh-pages -d dist -u \"cibulya <cibulya@gmail.com>\" -r https://$GH_TOKEN@github.com/Cibulya/vue-course.git"
   },
   "dependencies": {
     "axios": "^1.10.0",
@@ -21,7 +21,6 @@
     "@vue/eslint-config-prettier": "^10.2.0",
     "eslint": "^9.22.0",
     "eslint-plugin-vue": "~10.0.0",
-    "gh-pages": "^6.3.0",
     "globals": "^16.0.0",
     "prettier": "3.5.3",
     "vite": "^6.2.4",
