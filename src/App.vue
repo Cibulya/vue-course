@@ -1,43 +1,29 @@
 <template>
-  <div class="card">
-    <h2>{{$i18n('app.title')}}</h2>
-    <h2></h2>
-    <button class="btn" @click="$alert('Alert from plugin')">Alert</button>
-    <button class="btn" @click="changeLang">Переключить язык</button>
-    <button class="btn primary" @click="modal = true">Открыть Модальное окно</button>
-   
-    <teleport to="body">
-      <app-modal 
-      v-if="modal"
-      @close="modal = false"
-      >
-    </app-modal>
-    </teleport>
+  <the-navbar></the-navbar>
+  <div class="container with-nav">
+    <login></login>
   </div>
 </template>
 
 <script>
-import AppModal from './components/AppModal.vue';
+import TheNavbar from './components/TheNavbar'
+import Login from './views/Login'
+
 export default {
-  inject:['changeI18n'],
-  methods:{
-    changeLang() {
-      this.changeI18n.changeLanguage(); 
-      this.$forceUpdate();
-    }
-  },
-  data(){
+  components: {TheNavbar, Login},
+  provide() {
     return {
-      modal:false
+      emails: [
+        {id: 1, theme: 'Купил себе PlayStation 5'},
+        {id: 2, theme: 'Выучил Vue Router'},
+        {id: 3, theme: 'Хочу изучить весь Vue'},
+        {id: 4, theme: 'А следующий блок про Vuex!'},
+        {id: 5, theme: 'А что там на счет Vue Hooks?'}
+      ]
     }
-    
-  },
-  components:{
-    AppModal
   }
 }
 </script>
 
 <style>
-
 </style>
