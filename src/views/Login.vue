@@ -12,7 +12,10 @@
     </div>
 
     <button class="btn primary" type="submit">Войти</button>
-    <button class="btn warning">Забыл пароль?</button>
+    <router-link to="/forget" v-slot="{navigate}">
+      <button class="btn warning" @click="navigate">Забыли пароль?</button>
+    </router-link>
+    <router-link to="/forget">Забыли пароль?</router-link>
   </form>
 </template>
 
@@ -29,10 +32,11 @@ export default {
       return this.email !== '' && this.password !== ''
     }
   },
+  inject:['login'],
   methods: {
     submit() {
       if (this.isValid) {
-        // login
+        this.login();
       }
     }
   }
