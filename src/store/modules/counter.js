@@ -1,6 +1,5 @@
-import { createStore } from "vuex";
-
-export default createStore({
+export default {
+    namespaced:true,
     state() {
         return {
             counter:1
@@ -17,7 +16,6 @@ export default createStore({
     },
     actions :{
         incrementAsync({commit},payload){
-            console.log(commit)
             setTimeout(()=>{
                 commit('addFive',payload)
             },payload.delay)
@@ -34,4 +32,4 @@ export default createStore({
             return getters.counter * 2
         }
     }
-})
+}

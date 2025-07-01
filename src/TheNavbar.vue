@@ -13,7 +13,7 @@ import {mapGetters,mapMutations} from 'vuex'
       // counter() {
       //   return this.$store.getters.counter
       // },
-      ...mapGetters(['counter']) 
+      ...mapGetters('count',['counter']) 
      },
      methods: {
       add() {
@@ -24,7 +24,7 @@ import {mapGetters,mapMutations} from 'vuex'
         })
       },
       ...mapMutations({
-        add:'addFive'
+        add:'count/addFive'
       }),
      }
   }
