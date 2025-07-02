@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.app.json",
+  "include": ["src/**/__tests__/*", "env.d.ts", "shims-vue.d.ts"],
+  "exclude": [],
+  "compilerOptions": {
+    "types": ["vitest"],
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "allowJs": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"]
+  }
+}
